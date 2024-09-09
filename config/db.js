@@ -1,20 +1,17 @@
-require('dotenv').config(); // Asegúrate de que esta línea esté al principio
+const mongoose = require('mongoose');
+require('dotenv').config();  
 
-const mysql = require('mysql2');
-
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to the database:', err);
-    return;
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Conectado a MongoDB Atlas');
+  } catch (error) {
+    console.error('Error al conectar a MongoDB:', error.message);
+    process.exit(1);
   }
-  console.log('Connected to the database');
-});
+};
 
-module.exports = connection;
+module.exports = connectDB;

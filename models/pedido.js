@@ -1,16 +1,19 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
+const mongoose = require('mongoose');
 
-// Definir el modelo de Pedido
-const Pedido = sequelize.define('Pedido', {
+const PedidoSchema = new mongoose.Schema({
   productId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true
   },
   quantity: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: Number,
+    required: true
   },
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = Pedido;
+module.exports = mongoose.model('Pedido', PedidoSchema);

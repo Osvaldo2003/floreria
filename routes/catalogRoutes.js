@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const catalogController = require('../controllers/catalogController');
 
-// Ruta para obtener todos los productos
-router.get('/', catalogController.getProducts);
+
+router.get('/catalogo', catalogController.getCatalog);
 
 module.exports = router;
